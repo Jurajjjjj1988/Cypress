@@ -1,2 +1,4 @@
-.idea
-node_modules
+echo ".DS_Store" >> .gitignore
+echo "node_modules/" >> .gitignore
+echo "cypress/videos/" >> .gitignore
+echo "cypress/screenshots/" >> .gitignore
