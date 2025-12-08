@@ -3,3 +3,4 @@ echo "node_modules/" >> .gitignore
 echo "cypress/videos/" >> .gitignore
 echo "cypress/screenshots/" >> .gitignore
 .DS_Store
+.DS_Store
