@@ -1,31 +1,14 @@
 class HomePage {
-    hamburgerButton() {
-        return cy.get('[data-test="navbar.hamburgerButton"]');
+    hamburger() {
+      return cy.get('[data-testid="hamburger"]');
     }
-
-    loginButton() {
-        return cy.contains('button', 'Přihlásit se');
+    loginBtn() {
+      return cy.contains('Prihlásiť');
     }
-
-    emailInput() {
-        return cy.get('#email');
+    addOfferBtn() {
+      return cy.contains('Vložiť inzerát');
     }
-
-    emailSubmitButton() {
-        return cy.get('[data-test="loginModal.identification.form.button"]');
-    }
-
-    passwordInput() {
-        return cy.get('[data-test="loginModal.signIn.form.passwordInput"]');
-    }
-
-    passwordSubmitButton() {
-        return cy.get('[data-test="loginModal.signIn.form.button"]');
-    }
-
-    addOfferButton() {
-        return cy.get('[data-test="navbar.content.addOffer"]');
-    }
-}
-
-export default new HomePage();
+  }
+  
+  export default new HomePage();
+  
