@@ -1,0 +1,34 @@
+{
+  "name": "cypress-ulovdomov",
+  "version": "1.0.0",
+  "description": "Cypress E2E test suite for ulovdomov.cz",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run --browser chrome",
+    "cy:run:headed": "cypress run --browser chrome --headed",
+    "test": "cypress run --browser chrome --reporter mochawesome",
+    "report:merge": "mochawesome-merge mochawesome-report/*.json > mochawesome-report/merged.json",
+    "report:generate": "marge mochawesome-report/merged.json --reportDir mochawesome-report --inline",
+    "lint": "eslint cypress/ && prettier --check cypress/",
+    "lint:fix": "eslint --fix cypress/ && prettier --write cypress/",
+    "format": "prettier --write cypress/"
+  },
+  "keywords": [
+    "cypress",
+    "e2e",
+    "testing"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "cypress": "^14.5.4",
+    "dotenv": "^17.3.1",
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^5.1.1",
+    "mochawesome-report-generator": "^6.3.2",
+    "prettier": "^3.8.1"
+  }
+}

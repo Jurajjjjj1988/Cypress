@@ -1,0 +1,81 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 8 * * 1-5'
+  workflow_dispatch:
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint check
+        run: npm run lint
+
+      - name: Create .env
+        run: |
+          cat <<EOF > .env
+          BASE_URL=${{ secrets.BASE_URL }}
+          TEST_USER_EMAIL=${{ secrets.TEST_USER_EMAIL }}
+          TEST_USER_PASSWORD=${{ secrets.TEST_USER_PASSWORD }}
+          EOF
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          config-file: cypress.config.js
+
+      - name: Upload screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots/
+          retention-days: 14
+
+      - name: Upload videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos/
+          retention-days: 14
+
+      - name: Notify Slack on failure
+        if: failure()
+        run: |
+          curl -s -X POST -H 'Content-type: application/json' \
+            --data "{
+              \"text\": \":red_circle: *Cypress E2E Tests Failed*\n*Branch:* ${{ github.ref_name }}\n*Author:* ${{ github.actor }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\"
+            }" \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify Slack on success
+        if: success() && github.event_name == 'push'
+        run: |
+          curl -s -X POST -H 'Content-type: application/json' \
+            --data "{
+              \"text\": \":large_green_circle: *Cypress E2E Tests Passed*\n*Branch:* ${{ github.ref_name }}\"
+            }" \
+            ${{ secrets.SLACK_WEBHOOK_URL }}

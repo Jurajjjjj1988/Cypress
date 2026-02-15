@@ -1,9 +1,22 @@
+/** Login via the modal dialog */
 Cypress.Commands.add('login', (email, password) => {
-    cy.get('[data-testid="hamburger"]').click();
-    cy.contains('Prihlásiť').click();
-    cy.get('[name="email"]').type(email);
-    cy.contains('Pokračovať').click();
-    cy.get('[name="password"]').type(password);
-    cy.contains('Prihlásiť').click();
+  cy.get('[data-test="navbar.hamburgerButton"]').click();
+  cy.contains('Přihlásit se').first().click();
+
+  cy.get('[data-test="loginModal.signIn.form.emailInput"]').should('be.visible').type(email);
+
+  cy.get('[data-test="loginModal.signIn.form.passwordInput"]').type(password);
+  cy.get('[data-test="loginModal.signIn.form.button"]').click();
+
+  // Wait for modal to close
+  cy.get('[data-test="loginModal.signIn.form.emailInput"]', { timeout: 10000 }).should('not.exist');
+});
+
+/** Dismiss cookie consent if present */
+Cypress.Commands.add('dismissOverlay', () => {
+  cy.get('body').then(($body) => {
+    if ($body.find('button:contains("Allow all")').length > 0) {
+      cy.contains('button', 'Allow all').click();
+    }
   });
-  
+});

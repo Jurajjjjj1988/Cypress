@@ -1,0 +1,24 @@
+{
+  "locations": {
+    "prague": "Praha",
+    "brno": "Brno"
+  },
+  "urls": {
+    "rentalApartmentsPrague": "/pronajem/byty/praha",
+    "saleHouses": "/prodej/domu",
+    "postAd": "/vlozeni-inzeratu",
+    "profileEdit": "/nastaveni/moje-vizitka"
+  },
+  "sort": {
+    "best": "Nejlepší",
+    "newest": "Nejnovější",
+    "cheapest": "Nejlevnější"
+  },
+  "profile": {
+    "firstName": "Juraj",
+    "lastName": "Kapušanský",
+    "occupation": "QA Engineer",
+    "yearOfBirth": "1990",
+    "aboutMe": "Hledám příjemné bydlení v Praze. Nekuřák, spolehlivý nájemník."
+  }
+}

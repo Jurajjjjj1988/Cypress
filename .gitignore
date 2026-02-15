@@ -1,6 +1,7 @@
-echo ".DS_Store" >> .gitignore
-echo "node_modules/" >> .gitignore
-echo "cypress/videos/" >> .gitignore
-echo "cypress/screenshots/" >> .gitignore
-.DS_Store
+node_modules/
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+mochawesome-report/
+.env
 .DS_Store
