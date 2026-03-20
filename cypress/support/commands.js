@@ -8,8 +8,8 @@ Cypress.Commands.add('login', (email, password) => {
   cy.get('[data-test="loginModal.signIn.form.passwordInput"]').type(password);
   cy.get('[data-test="loginModal.signIn.form.button"]').click();
 
-  // Wait for modal to close
-  cy.get('[data-test="loginModal.signIn.form.emailInput"]', { timeout: 10000 }).should('not.exist');
+  // Wait for login modal to close after successful authentication
+  cy.get('[data-test="loginModal.signIn.form.emailInput"]').should('not.exist');
 });
 
 /** Dismiss cookie consent if present */

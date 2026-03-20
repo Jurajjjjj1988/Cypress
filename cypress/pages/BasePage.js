@@ -1,12 +1,15 @@
 class BasePage {
+  /** @returns {Cypress.Chainable} Navbar logo link */
   get logo() {
     return cy.get('[data-test="navbar.logoUlovDomov"]');
   }
 
+  /** @returns {Cypress.Chainable} "Vložit inzerát" navigation link */
   get postAdLink() {
     return cy.get('[data-test="navbar.content.addOffer"]');
   }
 
+  /** @returns {Cypress.Chainable} Hamburger menu button */
   get menuButton() {
     return cy.get('[data-test="navbar.hamburgerButton"]');
   }
